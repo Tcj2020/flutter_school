@@ -37,7 +37,7 @@ class _CreateState extends State<Create> {
                 child: Column(
                   children: [
                     TextFormField(
-                        controller: _reason,
+                        controller: _typeColl,
                         decoration:
                             InputDecoration(labelText: "类型", hintText: "请假类型"),
                         // 校验用户名
@@ -106,7 +106,7 @@ class _CreateState extends State<Create> {
                           })
                     ]),
                     TextFormField(
-                        controller: _typeColl,
+                        controller: _reason,
                         decoration:
                             InputDecoration(labelText: "原因", hintText: "请假原因"),
                         // 校验用户名
