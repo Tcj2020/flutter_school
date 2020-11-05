@@ -34,7 +34,6 @@ class _CreateState extends State<Create> {
           children: [
             Form(
                 key: _formKey,
-                autovalidate: true,
                 child: Column(
                   children: [
                     TextFormField(
