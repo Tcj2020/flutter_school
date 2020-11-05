@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'historyItem.dart';
 
@@ -10,11 +11,13 @@ class ItemDetile extends StatefulWidget {
   _ItemDetileState createState() => _ItemDetileState();
 }
 
-class _ItemDetileState extends State<ItemDetile> {
+class _ItemDetileState extends State<ItemDetile>
+    with SingleTickerProviderStateMixin {
   String currentTime = '';
   Timer t;
   TextStyle style = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
-
+  AnimationController controller;
+  Animation<double> animation;
   @override
   void initState() {
     DateTime now = DateTime.now();
@@ -29,6 +32,18 @@ class _ItemDetileState extends State<ItemDetile> {
             '${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}:${now.second}';
       });
     });
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    animation = new Tween(begin: -40.0, end: 40.0).animate(controller)
+      ..addListener(() {
+        setState(() {});
+        if (animation.status == AnimationStatus.completed)
+          controller.reset();
+        else if (animation.status == AnimationStatus.dismissed) {
+          controller.forward();
+        }
+      });
+    controller.forward();
     super.initState();
   }
 
@@ -107,30 +122,45 @@ class _ItemDetileState extends State<ItemDetile> {
           tileMode: TileMode.repeated, // repeats the gradient over the canvas
         ),
       ),
-      child: Column(
+      child: Stack(
         children: [
-          Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.check_circle, color: Colors.white),
-                    Text('审批已通过', style: textStyle)
-                  ])),
-          Text('正在休假中', style: TextStyle(color: Colors.white, fontSize: 30)),
-          Opacity(
-            opacity: 0.5,
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+          alert(animation.value - 80),
+          alert(animation.value - 160),
+          alert(animation.value - 240),
+          alert(animation.value),
+          alert(animation.value + 80),
+          alert(animation.value + 160),
+          alert(animation.value + 240),
+          alert(animation.value + 320),
+          alert(animation.value + 400),
+          alert(animation.value + 480),
+          Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.white),
+                        Text('审批已通过', style: textStyle)
+                      ])),
+              Text('正在休假中',
+                  style: TextStyle(color: Colors.white, fontSize: 30)),
+              Opacity(
+                opacity: 0.5,
+                child: Container(
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Text('当前时间:$currentTime',
+                      style: TextStyle(color: Colors.white, fontSize: 13)),
+                ),
               ),
-              child: Text('当前时间:$currentTime',
-                  style: TextStyle(color: Colors.white, fontSize: 13)),
-            ),
-          )
+            ],
+          ),
         ],
       ),
     );
@@ -290,5 +320,23 @@ class _ItemDetileState extends State<ItemDetile> {
         )
       ],
     ));
+  }
+
+  Widget alert(double left) {
+    return Positioned(
+      bottom: -18,
+      left: left,
+      child: Container(
+        child: Transform.rotate(
+          angle: -pi / 8,
+          child: RaisedButton(
+            color: Colors.white,
+            shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
   }
 }
