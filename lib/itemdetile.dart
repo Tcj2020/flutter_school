@@ -13,6 +13,8 @@ class ItemDetile extends StatefulWidget {
 class _ItemDetileState extends State<ItemDetile> {
   String currentTime = '';
   Timer t;
+  TextStyle style = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+
   @override
   void initState() {
     DateTime now = DateTime.now();
@@ -93,7 +95,18 @@ class _ItemDetileState extends State<ItemDetile> {
   Widget mainTitle() {
     TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 18);
     return Container(
-      color: Color.fromRGBO(28, 151, 104, 1),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment
+              .bottomCenter, // 10% of the width, so there are ten blinds.
+          colors: [
+            const Color.fromRGBO(16, 159, 96, 1),
+            const Color.fromRGBO(1, 223, 116, 1),
+          ], // red to yellow
+          tileMode: TileMode.repeated, // repeats the gradient over the canvas
+        ),
+      ),
       child: Column(
         children: [
           Container(
@@ -133,7 +146,7 @@ class _ItemDetileState extends State<ItemDetile> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               option('请假类型', widget.item.type,
-                  margin: EdgeInsets.only(right: 100)),
+                  margin: EdgeInsets.only(right: 50)),
               option('需要离校', widget.item.leaveSchool ? '离校' : '不离校')
             ],
           ),
@@ -146,13 +159,20 @@ class _ItemDetileState extends State<ItemDetile> {
   }
 
   Widget option(String opt, String value,
-      {EdgeInsetsGeometry margin, Color color}) {
+      {EdgeInsetsGeometry margin, Color color, bool more = false}) {
     return Container(
       margin: margin,
       child: Row(
         children: [
-          Text('$opt:', style: TextStyle(color: Colors.grey)),
-          Text(value, style: TextStyle(color: color)),
+          Container(
+            width: 97,
+            child: Text('$opt:',
+                style: TextStyle(color: Colors.grey, fontSize: 15)),
+          ),
+          Text(
+            value,
+            style: TextStyle(color: color),
+          ),
         ],
       ),
     );
@@ -165,7 +185,10 @@ class _ItemDetileState extends State<ItemDetile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('我的申请'),
+          Text(
+            '我的请假申请',
+            style: style,
+          ),
           option('开始时间', widget.item.timeFormat(widget.item.startTime)),
           option('结束时间', widget.item.timeFormat(widget.item.endTime)),
           option('审批流程', '共1步'),
@@ -180,12 +203,18 @@ class _ItemDetileState extends State<ItemDetile> {
 
   Widget status() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 13),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text('审批状态'), timeLine()],
+        children: [
+          Text(
+            '审批状态',
+            style: style,
+          ),
+          timeLine()
+        ],
       ),
     );
   }
@@ -228,9 +257,13 @@ class _ItemDetileState extends State<ItemDetile> {
               ),
             ),
             Text(
-              '雷玉矫 - 发起申请',
+              '一级:[辅导员]${widget.item.counselor}-审批',
               style: style,
             ),
+            Text('通过',
+                style: TextStyle(
+                    color: Color.fromRGBO(46, 187, 132, 1),
+                    fontWeight: FontWeight.bold)),
             Expanded(child: Container()),
             Text(
                 '${widget.item.timeFormat(widget.item.startTime.add(Duration(hours: 3)))}',
@@ -243,6 +276,7 @@ class _ItemDetileState extends State<ItemDetile> {
             Container(
               width: MediaQuery.of(context).size.width - 130,
               padding: EdgeInsets.only(top: 8, left: 10),
+              margin: EdgeInsets.only(top: 10),
               height: 40,
               decoration: BoxDecoration(
                 color: Color.fromRGBO(246, 247, 249, 1),
