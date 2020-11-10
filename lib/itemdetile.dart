@@ -87,18 +87,39 @@ class _ItemDetileState extends State<ItemDetile>
             Container(
               margin: EdgeInsets.only(top: 30, bottom: 20),
               alignment: Alignment.center,
-              child: FlatButton(
-                minWidth: MediaQuery.of(context).size.width - 40,
-                height: 50,
-                shape: ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
-                textColor: Colors.white,
-                child: Text(
-                  '去销假',
-                  style: TextStyle(fontSize: 18),
+              child: AnimatedCrossFade(
+                duration: const Duration(seconds: 1),
+                firstChild: OutlineButton(
+                  padding: EdgeInsets.symmetric(horizontal: 160,vertical: 10),
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: Text(
+                    '转发',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
+                  onPressed: () {
+                    widget.item.isFinish = !widget.item.isFinish;
+                  },
                 ),
-                color: Color.fromRGBO(68, 130, 241, 1),
-                onPressed: () {},
+                secondChild: FlatButton(
+                  minWidth: MediaQuery.of(context).size.width - 40,
+                  height: 50,
+                  shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  textColor: Colors.white,
+                  child: Text(
+                    '去销假',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  color: Color.fromRGBO(68, 130, 241, 1),
+                  onPressed: () {
+                    widget.item.isFinish = !widget.item.isFinish;
+                  },
+                ),
+                crossFadeState: widget.item.isFinish
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
               ),
             )
           ],
@@ -115,10 +136,15 @@ class _ItemDetileState extends State<ItemDetile>
           begin: Alignment.topCenter,
           end: Alignment
               .bottomCenter, // 10% of the width, so there are ten blinds.
-          colors: [
-            const Color.fromRGBO(16, 159, 96, 1),
-            const Color.fromRGBO(1, 223, 116, 1),
-          ], // red to yellow
+          colors: widget.item.isFinish
+              ? [
+                  const Color.fromRGBO(106, 112, 127, 1),
+                  const Color.fromRGBO(156, 166, 179, 1),
+                ]
+              : [
+                  const Color.fromRGBO(16, 159, 96, 1),
+                  const Color.fromRGBO(1, 223, 116, 1),
+                ], // red to yellow
           tileMode: TileMode.repeated, // repeats the gradient over the canvas
         ),
       ),
@@ -144,7 +170,7 @@ class _ItemDetileState extends State<ItemDetile>
                         Icon(Icons.check_circle, color: Colors.white),
                         Text('审批已通过', style: textStyle)
                       ])),
-              Text('正在休假中',
+              Text(widget.item.isFinish ? "已完成" : '正在休假中',
                   style: TextStyle(color: Colors.white, fontSize: 30)),
               Opacity(
                 opacity: 0.5,
@@ -243,7 +269,35 @@ class _ItemDetileState extends State<ItemDetile>
             '审批状态',
             style: style,
           ),
-          timeLine()
+          timeLine(),
+          widget.item.isFinish
+              ? Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.grey),
+                    top: BorderSide(width: 1, color: Colors.grey),
+                  )),
+                  child: ListTile(
+                    title: Text(
+                      '销假信息',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                )
+              : Container(),
+          widget.item.isFinish
+              ? ListTile(
+                  title: Text(
+                    '定位',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('中国湖北省荆州市荆州区G318(沪聂线)'),
+                  shape: BorderDirectional(
+                    top: BorderSide(width: 1, color: Colors.grey),
+                    bottom: BorderSide(width: 1, color: Colors.grey),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -317,7 +371,29 @@ class _ItemDetileState extends State<ItemDetile>
               child: Text('审批意见:${widget.item.issue}'),
             )
           ],
-        )
+        ),
+        widget.item.isFinish
+            ? Row(
+                children: [
+                  Container(
+                    width: h,
+                    height: h,
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(h)),
+                    ),
+                  ),
+                  Text(
+                    '雷玉矫 - 销假成功',
+                    style: style,
+                  ),
+                  Expanded(child: Container()),
+                  Text('${widget.item.timeFormat(widget.item.endTime)}',
+                      style: style),
+                ],
+              )
+            : Container(),
       ],
     ));
   }

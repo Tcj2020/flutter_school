@@ -62,8 +62,12 @@ class _CreateState extends State<Create> {
                             String timeStr = time.toString().split(' ')[0];
 
                             setState(() {
-                              this.startTime =
-                                  "$timeStr ${hs.hour}:${hs.minute}:00";
+                              String m = '';
+                              if (hs.minute < 10)
+                                m = '0${hs.minute}';
+                              else
+                                m = hs.minute.toString();
+                              startTime = "$timeStr ${hs.hour}:$m:00";
                             });
                           },
                         ),
@@ -86,9 +90,14 @@ class _CreateState extends State<Create> {
                             TimeOfDay hs = await showTimePicker(
                                 context: context, initialTime: TimeOfDay.now());
                             String timeStr = time.toString().split(' ')[0];
+
                             setState(() {
-                              this.endTime =
-                                  "$timeStr ${hs.hour}:${hs.minute}:00";
+                              String m = '';
+                              if (hs.minute < 10)
+                                m = '0${hs.minute}';
+                              else
+                                m = hs.minute.toString();
+                              endTime = "$timeStr ${hs.hour}:$m:00";
                             });
                           },
                         ),

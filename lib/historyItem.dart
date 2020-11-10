@@ -2,7 +2,7 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 11:27:11
- * @LastEditTime: 2020-11-04 18:08:51
+ * @LastEditTime: 2020-11-10 10:28:00
  */
 class HistoryItem {
   Duration preSetTIme; //请假时间
@@ -21,18 +21,21 @@ class HistoryItem {
   bool passStatu = true; //辅导员审批通过
   String issue = ''; //审批意见
   String actionTime = ''; //提交时间
-  HistoryItem(
-      {String startTime,
-      String endTime,
-      this.statu,
-      this.type,
-      this.reason,
-      this.cc,
-      this.counselor,
-      this.passStatu,
-      this.issue,
-      this.leaveSchool,
-      this.actionTime}) {
+  bool isFinish;
+  HistoryItem({
+    String startTime,
+    String endTime,
+    this.statu,
+    this.type,
+    this.reason,
+    this.cc,
+    this.counselor,
+    this.passStatu,
+    this.issue,
+    this.leaveSchool,
+    this.actionTime,
+    this.isFinish = false,
+  }) {
     DateTime st = DateTime.parse(startTime);
     DateTime et = DateTime.parse(endTime);
     this.startTime = st;
