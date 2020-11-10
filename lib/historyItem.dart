@@ -2,7 +2,7 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 11:27:11
- * @LastEditTime: 2020-11-10 10:28:00
+ * @LastEditTime: 2020-11-10 11:19:30
  */
 class HistoryItem {
   Duration preSetTIme; //请假时间
@@ -23,8 +23,8 @@ class HistoryItem {
   String actionTime = ''; //提交时间
   bool isFinish;
   HistoryItem({
-    String startTime,
-    String endTime,
+    this.startTime,
+    this.endTime,
     this.statu,
     this.type,
     this.reason,
@@ -36,11 +36,7 @@ class HistoryItem {
     this.actionTime,
     this.isFinish = false,
   }) {
-    DateTime st = DateTime.parse(startTime);
-    DateTime et = DateTime.parse(endTime);
-    this.startTime = st;
-    this.endTime = et;
-    this.preSetTIme = et.difference(st);
+    this.preSetTIme = startTime.difference(endTime);
   }
   complitExcTime(String excStartTime, String excEndTime) {
     DateTime ect = DateTime.parse(excStartTime);

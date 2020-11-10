@@ -21,6 +21,7 @@ class _CreateState extends State<Create> {
   GlobalKey _formKey = new GlobalKey<FormState>();
   String startTime = '0:0:0';
   String endTime = '0:0:0';
+  DateTime st, et;
   bool leave = true;
   @override
   Widget build(BuildContext context) {
@@ -59,15 +60,11 @@ class _CreateState extends State<Create> {
                             );
                             TimeOfDay hs = await showTimePicker(
                                 context: context, initialTime: TimeOfDay.now());
-                            String timeStr = time.toString().split(' ')[0];
-
+                            time = time.add(
+                                Duration(hours: hs.hour, minutes: hs.minute));
                             setState(() {
-                              String m = '';
-                              if (hs.minute < 10)
-                                m = '0${hs.minute}';
-                              else
-                                m = hs.minute.toString();
-                              startTime = "$timeStr ${hs.hour}:$m:00";
+                              startTime = time.toString();
+                              st = time;
                             });
                           },
                         ),
@@ -89,15 +86,11 @@ class _CreateState extends State<Create> {
                             );
                             TimeOfDay hs = await showTimePicker(
                                 context: context, initialTime: TimeOfDay.now());
-                            String timeStr = time.toString().split(' ')[0];
-
+                            time = time.add(
+                                Duration(hours: hs.hour, minutes: hs.minute));
                             setState(() {
-                              String m = '';
-                              if (hs.minute < 10)
-                                m = '0${hs.minute}';
-                              else
-                                m = hs.minute.toString();
-                              endTime = "$timeStr ${hs.hour}:$m:00";
+                              endTime = time.toString();
+                              et = time;
                             });
                           },
                         ),
@@ -142,8 +135,8 @@ class _CreateState extends State<Create> {
                     endTime != '0:0:0' &&
                     (_formKey.currentState as FormState).validate()) {
                   HistoryItem item = HistoryItem(
-                      startTime: startTime,
-                      endTime: endTime,
+                      startTime: st,
+                      endTime: et,
                       type: _typeColl.text,
                       counselor: _counselor.text,
                       reason: _reason.text,
