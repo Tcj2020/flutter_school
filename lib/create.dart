@@ -39,6 +39,7 @@ class _CreateState extends State<Create> {
                   children: [
                     TextFormField(
                         controller: _typeColl,
+                        maxLength: 10,
                         decoration:
                             InputDecoration(labelText: "类型", hintText: "请假类型"),
                         // 校验用户名
@@ -109,6 +110,7 @@ class _CreateState extends State<Create> {
                     ]),
                     TextFormField(
                         controller: _reason,
+                        maxLength: 10,
                         decoration:
                             InputDecoration(labelText: "原因", hintText: "请假原因"),
                         // 校验用户名
@@ -117,14 +119,18 @@ class _CreateState extends State<Create> {
                         }),
                     TextFormField(
                         controller: _counselor,
-                        decoration:
-                            InputDecoration(labelText: "辅导员", hintText: "辅导员"),
+                        maxLength: 4,
+                        decoration: InputDecoration(
+                          labelText: "辅导员",
+                          hintText: "辅导员",
+                        ),
                         // 校验用户名
                         validator: (v) {
                           return v.trim().length > 0 ? null : "辅导员不能为空";
                         }),
                     TextFormField(
                         controller: _issue,
+                        maxLength: 10,
                         decoration: InputDecoration(
                             labelText: "审批意见", hintText: "审批意见"))
                   ],

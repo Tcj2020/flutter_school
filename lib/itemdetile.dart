@@ -245,27 +245,36 @@ class _ItemDetileState extends State<ItemDetile>
           ),
           option('销假规则', widget.item.rule,
               color: Color.fromRGBO(244, 169, 38, 1)),
-          option('实际休假时间', ' - '),
+          option('', '查看  >', color: Colors.blue, more: true),
+          option(
+              '实际休假时间',
+              widget.item.isFinish
+                  ? '${widget.item.durationToDay(widget.item.preSetTIme)}'
+                  : ' - '),
         ],
       ),
     );
   }
 
   Widget option(String opt, String value,
-      {EdgeInsetsGeometry margin, Color color, bool more = false}) {
+      {EdgeInsetsGeometry margin,
+      Color color,
+      bool more = false,
+      Widget expand}) {
     return Container(
       margin: margin,
       child: Row(
         children: [
           Container(
             width: 97,
-            child: Text('$opt:',
+            child: Text(more ? '$opt' : '$opt:',
                 style: TextStyle(color: Colors.grey, fontSize: 15)),
           ),
           Text(
             value,
             style: TextStyle(color: color),
           ),
+          expand ?? Container()
         ],
       ),
     );
@@ -284,7 +293,11 @@ class _ItemDetileState extends State<ItemDetile>
           ),
           option('开始时间', widget.item.timeFormat(widget.item.startTime)),
           option('结束时间', widget.item.timeFormat(widget.item.endTime)),
-          option('审批流程', '共1步'),
+          option('审批流程', '共1步',
+              expand: Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text('查看  >', style: TextStyle(color: Colors.blue)),
+              )),
           option('紧急联系人', widget.item.contact),
           option('请假原因', widget.item.reason),
           option('发起位置', '中国湖北省荆州市荆州区G8(沪聂线)', color: Colors.blue),
@@ -342,7 +355,7 @@ class _ItemDetileState extends State<ItemDetile>
 
   Widget timeLine() {
     double h = 25;
-    TextStyle style = TextStyle(color: Colors.grey);
+    TextStyle style = TextStyle(color: Colors.grey, fontFamily: "firacode");
     return Container(
         child: Column(
       children: [
@@ -358,7 +371,7 @@ class _ItemDetileState extends State<ItemDetile>
               ),
             ),
             Text(
-              '雷玉矫 —— 发起申请',
+              '雷玉矫 ——— 发起申请',
               style: style,
             ),
             Expanded(child: Container()),
@@ -378,7 +391,7 @@ class _ItemDetileState extends State<ItemDetile>
               ),
             ),
             Text(
-              '一级:[辅导员]${widget.item.counselor}-审批',
+              '一级:[辅导员]${widget.item.counselor} ——— 审批',
               style: style,
             ),
             Text('通过',

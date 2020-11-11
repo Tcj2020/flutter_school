@@ -22,3 +22,7 @@ flutter:
   assets:
     - images/icon.png
     - images/wenh.png
+  fonts:
+    - family: firacode
+      fonts:
+        - asset: fonts/firacode.ttf
