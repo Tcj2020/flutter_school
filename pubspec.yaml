@@ -19,3 +19,6 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
+  assets:
+    - images/icon.png
+    - images/wenh.png

@@ -15,7 +15,7 @@ class _ItemDetileState extends State<ItemDetile>
     with SingleTickerProviderStateMixin {
   String currentTime = '';
   Timer t;
-  TextStyle style = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+  TextStyle style = TextStyle(fontWeight: FontWeight.bold, fontSize: 17);
   AnimationController controller;
   Animation<double> animation;
   @override
@@ -60,7 +60,17 @@ class _ItemDetileState extends State<ItemDetile>
       appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: Text('请假详情', style: TextStyle(color: Colors.black)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                child: Image.asset('images/icon.png'),
+              ),
+              Text('请假详情', style: TextStyle(color: Colors.black))
+            ],
+          ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
@@ -76,6 +86,7 @@ class _ItemDetileState extends State<ItemDetile>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            help(),
             mainTitle(),
             info(),
             Container(
@@ -90,7 +101,7 @@ class _ItemDetileState extends State<ItemDetile>
               child: AnimatedCrossFade(
                 duration: const Duration(seconds: 1),
                 firstChild: OutlineButton(
-                  padding: EdgeInsets.symmetric(horizontal: 160,vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 160, vertical: 10),
                   shape: ContinuousRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
@@ -128,6 +139,32 @@ class _ItemDetileState extends State<ItemDetile>
     );
   }
 
+  Widget help() => widget.item.isFinish
+      ? Container()
+      : Container(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          color: Colors.grey,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 15,
+                child: Image.asset('images/wenh.png'),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Text('如何销假？', style: TextStyle(color: Colors.white)),
+              ),
+              Transform.rotate(
+                  angle: pi / 1,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 17,
+                  ))
+            ],
+          ),
+        );
   Widget mainTitle() {
     TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 18);
     return Container(
@@ -321,7 +358,7 @@ class _ItemDetileState extends State<ItemDetile>
               ),
             ),
             Text(
-              '雷玉矫 - 发起申请',
+              '雷玉矫 —— 发起申请',
               style: style,
             ),
             Expanded(child: Container()),
@@ -385,7 +422,7 @@ class _ItemDetileState extends State<ItemDetile>
                     ),
                   ),
                   Text(
-                    '雷玉矫 - 销假成功',
+                    '雷玉矫 —— 销假成功',
                     style: style,
                   ),
                   Expanded(child: Container()),
