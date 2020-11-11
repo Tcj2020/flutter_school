@@ -371,7 +371,7 @@ class _ItemDetileState extends State<ItemDetile>
               ),
             ),
             Text(
-              '雷玉矫 ——— 发起申请',
+              '雷玉矫 —— 发起申请',
               style: style,
             ),
             Expanded(child: Container()),
@@ -391,7 +391,7 @@ class _ItemDetileState extends State<ItemDetile>
               ),
             ),
             Text(
-              '一级:[辅导员]${widget.item.counselor} ——— 审批',
+              '一级:[辅导员]${widget.item.counselor} —— 审批',
               style: style,
             ),
             Text('通过',
