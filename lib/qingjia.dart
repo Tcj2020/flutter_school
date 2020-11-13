@@ -2,12 +2,13 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 10:59:12
- * @LastEditTime: 2020-11-13 16:41:09
+ * @LastEditTime: 2020-11-13 16:44:21
  */
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:school/create.dart';
+import 'package:school/createConfig.dart';
 import 'package:school/qingjiaList.dart';
 
 class Qingjia extends StatefulWidget {
@@ -70,6 +71,18 @@ class _QingjiaState extends State<Qingjia> {
       ),
       body: Row(
         children: [
+          FlatButton(
+            color: Colors.green,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateConfig(),
+                ),
+              );
+            },
+            child: Text('假条常用信息配置', style: TextStyle(color: Colors.white)),
+          ),
           FlatButton(
             color: Colors.blue,
             onPressed: () {

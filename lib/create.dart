@@ -27,6 +27,11 @@ class _CreateState extends State<Create> {
       person = '';
   DateTime st, et;
   bool leave = true;
+  @override
+  void dispose() {
+    super.dispose();
+    _formKey = null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,7 @@ class _CreateState extends State<Create> {
                 child: Column(
                   children: [
                     TextFormField(
+                        initialValue: Provider.of<Store>(context).person,
                         maxLength: 4,
                         onSaved: (newValue) => person = newValue,
                         decoration:
@@ -62,11 +68,11 @@ class _CreateState extends State<Create> {
                         }),
                     TextFormField(
                         maxLength: 12,
+                        initialValue: Provider.of<Store>(context).phone,
                         onSaved: (newValue) => contace = newValue,
                         decoration: InputDecoration(
                             labelText: "联系人电话", hintText: "联系人电话"),
                         keyboardType: TextInputType.number,
-                        // 校验用户名
                         validator: (v) {
                           return v.trim().length > 0 ? null : "联系人电话不能为空";
                         }),
@@ -142,6 +148,7 @@ class _CreateState extends State<Create> {
                           return v.trim().length > 0 ? null : "请假原因不能为空";
                         }),
                     TextFormField(
+                        initialValue: Provider.of<Store>(context).counselor,
                         onSaved: (newValue) => counselor = newValue,
                         maxLength: 4,
                         decoration: InputDecoration(
@@ -159,14 +166,17 @@ class _CreateState extends State<Create> {
                         decoration: InputDecoration(
                             labelText: "审批意见(可选)", hintText: "审批意见")),
                     TextFormField(
-                        onSaved: (newValue) {
-                          location = newValue == ""
-                              ? '中国湖北省荆州市荆州区G318(沪聂线)'
-                              : newValue;
-                        },
-                        maxLength: 20,
-                        decoration: InputDecoration(
-                            labelText: "定位(可选)", hintText: "定位")),
+                      initialValue: Provider.of<Store>(context).positon,
+                      onSaved: (newValue) {
+                        location = newValue;
+                      },
+                      maxLength: 20,
+                      validator: (v) {
+                        return v.trim().length > 0 ? null : "定位不能为空";
+                      },
+                      decoration:
+                          InputDecoration(labelText: "定位", hintText: "定位"),
+                    ),
                   ],
                 )),
             FlatButton(
