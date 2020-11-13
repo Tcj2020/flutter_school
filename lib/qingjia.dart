@@ -1,3 +1,9 @@
+/*
+ * @LastEditors: wyswill
+ * @Description: 文件描述
+ * @Date: 2020-11-04 10:59:12
+ * @LastEditTime: 2020-11-13 11:17:01
+ */
 import 'package:flutter/material.dart';
 import 'package:school/create.dart';
 import 'package:school/qingjiaList.dart';
@@ -32,7 +38,7 @@ class _QingjiaState extends State<Qingjia> {
             child: Text('创建新假条', style: TextStyle(color: Colors.white)),
           ),
           FlatButton(
-            color: Colors.blue,
+            color: Colors.purple,
             onPressed: () {
               Navigator.push(
                   context,
@@ -40,7 +46,7 @@ class _QingjiaState extends State<Qingjia> {
                     builder: (context) => QingjiaList(),
                   ));
             },
-            child: Text('请假', style: TextStyle(color: Colors.white)),
+            child: Text('假条列表', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

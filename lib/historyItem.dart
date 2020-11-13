@@ -2,7 +2,7 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 11:27:11
- * @LastEditTime: 2020-11-11 13:45:47
+ * @LastEditTime: 2020-11-13 11:11:09
  */
 class HistoryItem {
   Duration preSetTIme; //请假时间
@@ -13,7 +13,7 @@ class HistoryItem {
   DateTime endTime;
   String type; //请假类型
   String rule = '离校请假需要销假,非离校请假无需销假'; //请假规则
-  String contact = '15071844961'; //紧急联系人
+  String contact = ''; //紧急联系人
   String reason = ''; //请假原因
   String cc = ''; //抄送人
   //审批状态 Approval Status
@@ -22,9 +22,14 @@ class HistoryItem {
   String issue = ''; //审批意见
   String actionTime = ''; //提交时间
   bool isFinish;
+  String persopn = '';
+  String location = '';
   HistoryItem({
+    this.persopn,
+    this.location,
     this.startTime,
     this.endTime,
+    this.contact,
     this.statu,
     this.type,
     this.reason,

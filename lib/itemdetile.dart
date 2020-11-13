@@ -300,7 +300,7 @@ class _ItemDetileState extends State<ItemDetile>
               )),
           option('紧急联系人', widget.item.contact),
           option('请假原因', widget.item.reason),
-          option('发起位置', '中国湖北省荆州市荆州区G8(沪聂线)', color: Colors.blue),
+          option('发起位置', widget.item.location, color: Colors.blue),
           option('抄送人', '无'),
         ],
       ),
@@ -341,7 +341,7 @@ class _ItemDetileState extends State<ItemDetile>
                     '定位',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('中国湖北省荆州市荆州区G318(沪聂线)'),
+                  subtitle: Text(widget.item.location),
                   shape: BorderDirectional(
                     top: BorderSide(width: 1, color: Colors.grey),
                     bottom: BorderSide(width: 1, color: Colors.grey),
@@ -354,7 +354,7 @@ class _ItemDetileState extends State<ItemDetile>
   }
 
   Widget timeLine() {
-    double h = 25;
+    double h = 20;
     TextStyle style = TextStyle(color: Colors.grey, fontFamily: "firacode");
     return Container(
         child: Column(
@@ -364,14 +364,14 @@ class _ItemDetileState extends State<ItemDetile>
             Container(
               width: h,
               height: h,
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              margin: EdgeInsets.symmetric(horizontal:5, vertical: 10),
               decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.blue),
                 borderRadius: BorderRadius.all(Radius.circular(h)),
               ),
             ),
             Text(
-              '雷玉矫 —— 发起申请',
+              '${widget.item.persopn} —— 发起申请',
               style: style,
             ),
             Expanded(child: Container()),
@@ -384,7 +384,7 @@ class _ItemDetileState extends State<ItemDetile>
             Container(
               width: h,
               height: h,
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
               decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.green),
                 borderRadius: BorderRadius.all(Radius.circular(h)),
@@ -428,14 +428,14 @@ class _ItemDetileState extends State<ItemDetile>
                   Container(
                     width: h,
                     height: h,
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     decoration: BoxDecoration(
                       border: Border.all(width: 2, color: Colors.blue),
                       borderRadius: BorderRadius.all(Radius.circular(h)),
                     ),
                   ),
                   Text(
-                    '雷玉矫 —— 销假成功',
+                    '${widget.item.persopn} —— 销假成功',
                     style: style,
                   ),
                   Expanded(child: Container()),
