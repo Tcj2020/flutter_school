@@ -61,7 +61,7 @@ class _CreateState extends State<Create> {
                           return v.trim().length > 0 ? null : "类型不能为空";
                         }),
                     TextFormField(
-                        maxLength: 11,
+                        maxLength: 12,
                         onSaved: (newValue) => contace = newValue,
                         decoration: InputDecoration(
                             labelText: "联系人电话", hintText: "联系人电话"),

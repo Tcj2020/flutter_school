@@ -1,16 +1,37 @@
 # school
 
-A new Flutter project.
+该app复制了《今日学校》的请假界面，由flutterv1.22 build。
 
-## Getting Started
+以下是功能介绍：
 
-This project is a starting point for a Flutter application.
+基本界面：
 
-A few resources to get you started if this is your first Flutter project:
+![image-20201113114431390](../ts2uml/imgs/image-20201113114431390.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+创建假条界面
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+创建假条的默认定位为 **中国湖北省荆州市荆州区G318(沪聂线)** 若需要定制则自行修改
+
+注意⚠️ **请假时间开始时间和结束时间**为必选项！！！如果不选择则无法创建假条！！！
+
+
+
+![image-20201113114048054](typroa_images/image-20201113114048054.png)
+
+请假列表页面
+
+![image-20201113114754046](typroa_images/image-20201113114754046.png)
+
+长按单个假条则弹出删除弹窗
+
+![image-20201113114852241](typroa_images/image-20201113114852241.png)
+
+点击假条则进入假条详情
+
+![image-20201113114926451](typroa_images/image-20201113114926451.png)
+
+点击下方的去销假按钮则转换为销假页面
+
+![image-20201113115002320](typroa_images/image-20201113115002320.png)
+
+再次点击则转换为请假中。

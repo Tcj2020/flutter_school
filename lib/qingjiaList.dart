@@ -2,7 +2,7 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 11:08:19
- * @LastEditTime: 2020-11-13 11:30:52
+ * @LastEditTime: 2020-11-13 11:37:40
  */
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,14 +53,17 @@ class _QingjiaListState extends State<QingjiaList> {
       onLongPress: () {
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (_) => AlertDialog(
             title: Text('提示'),
             content: Text('是否确定删除假条？一旦删除无法恢复！！'),
             actions: [
               TextButton(
                   onPressed: () {
-                    Provider.of<Store>(context).allDatas.removeAt(index);
+                    Provider.of<Store>(context, listen: false)
+                        .allDatas
+                        .removeAt(index);
                     Navigator.pop(context);
+                    setState(() {});
                   },
                   child: Text('确定删除', style: TextStyle(color: Colors.red))),
               TextButton(
