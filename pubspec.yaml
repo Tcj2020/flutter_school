@@ -22,6 +22,7 @@ flutter:
   assets:
     - images/icon.png
     - images/wenh.png
+    - images/alertIcon.png
   fonts:
     - family: firacode
       fonts:

@@ -53,6 +53,7 @@ class _ItemDetileState extends State<ItemDetile>
     super.dispose();
   }
 
+//https://catqa.cpdaily.com/2018/10/24/%e5%a6%82%e4%bd%95%e9%94%80%e5%81%87%ef%bc%9f/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,16 +61,19 @@ class _ItemDetileState extends State<ItemDetile>
       appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                child: Image.asset('images/icon.png'),
-              ),
-              Text('请假详情', style: TextStyle(color: Colors.black))
-            ],
+          title: GestureDetector(
+            onTap: qingjiaInfo,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  child: Image.asset('images/icon.png'),
+                ),
+                Text('请假详情', style: TextStyle(color: Colors.black))
+              ],
+            ),
           ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -364,7 +368,7 @@ class _ItemDetileState extends State<ItemDetile>
             Container(
               width: h,
               height: h,
-              margin: EdgeInsets.symmetric(horizontal:5, vertical: 10),
+              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.blue),
                 borderRadius: BorderRadius.all(Radius.circular(h)),
@@ -462,6 +466,56 @@ class _ItemDetileState extends State<ItemDetile>
             onPressed: () {},
           ),
         ),
+      ),
+    );
+  }
+
+  void qingjiaInfo() {
+    showDialog(
+      context: context,
+      barrierColor: Color.fromRGBO(0, 0, 0, 0.4),
+      child: Stack(
+        children: [
+          AlertDialog(
+            elevation: 0,
+            content: Container(
+              height: 270,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 40, bottom: 10),
+                    child: Text('安全应用认证', style: TextStyle(fontSize: 22)),
+                  ),
+                  Text(
+                    '该应用已使用https协议，最佳程度保护了用户数据隐私，请放心使用',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 40),
+                    child: FlatButton(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('我知道了', style: TextStyle(fontSize: 19)),
+                      color: Color.fromRGBO(36, 219, 229, 1),
+                      textColor: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 150,
+            top: 135,
+            child: Image.asset(
+              'images/alertIcon.png',
+              width: 100,
+            ),
+          ),
+        ],
       ),
     );
   }
