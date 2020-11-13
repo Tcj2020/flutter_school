@@ -53,7 +53,6 @@ class _ItemDetileState extends State<ItemDetile>
     super.dispose();
   }
 
-//https://catqa.cpdaily.com/2018/10/24/%e5%a6%82%e4%bd%95%e9%94%80%e5%81%87%ef%bc%9f/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,28 +144,30 @@ class _ItemDetileState extends State<ItemDetile>
 
   Widget help() => widget.item.isFinish
       ? Container()
-      : Container(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          color: Colors.grey,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 15,
-                child: Image.asset('images/wenh.png'),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                child: Text('如何销假？', style: TextStyle(color: Colors.white)),
-              ),
-              Transform.rotate(
-                  angle: pi / 1,
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 17,
-                  ))
-            ],
+      : GestureDetector(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            color: Colors.grey,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 15,
+                  child: Image.asset('images/wenh.png'),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  child: Text('如何销假？', style: TextStyle(color: Colors.white)),
+                ),
+                Transform.rotate(
+                    angle: pi / 1,
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 17,
+                    ))
+              ],
+            ),
           ),
         );
   Widget mainTitle() {
