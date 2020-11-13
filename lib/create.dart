@@ -199,14 +199,14 @@ class _CreateState extends State<Create> {
                       actionTime:
                           "${DateTime.now().month}-${DateTime.now().day}");
                   Provider.of<Store>(context, listen: false).allDatas.add(item);
-                  showDialog(
+                  showDialog(  barrierDismissible: false,
                       context: context,
                       builder: (context) => AlertDialog(title: Text('保存完成')));
                   Timer(Duration(seconds: 1), () {
                     Navigator.pop(context);
                   });
                 } else
-                  showDialog(
+                  showDialog(  barrierDismissible: false,
                       context: context,
                       builder: (context) => AlertDialog(title: Text('假条创建失败')));
                 Timer(Duration(seconds: 1), () => Navigator.pop(context));

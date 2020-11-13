@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'historyItem.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: must_be_immutable
 class ItemDetile extends StatefulWidget {
   ItemDetile({Key key, this.item}) : super(key: key);
@@ -55,6 +55,7 @@ class _ItemDetileState extends State<ItemDetile>
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: Size(750, 1334), allowFontScaling: false);
     return Scaffold(
       backgroundColor: Color.fromRGBO(245, 246, 248, 1),
       appBar: AppBar(
@@ -480,7 +481,7 @@ class _ItemDetileState extends State<ItemDetile>
           AlertDialog(
             elevation: 0,
             content: Container(
-              height: 270,
+              height: 284,
               child: Column(
                 children: [
                   Padding(
@@ -492,7 +493,7 @@ class _ItemDetileState extends State<ItemDetile>
                     style: TextStyle(fontSize: 18),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 40),
+                    margin: EdgeInsets.symmetric(vertical: 37),
                     child: FlatButton(
                       padding:
                           EdgeInsets.symmetric(horizontal: 40, vertical: 10),
@@ -510,7 +511,8 @@ class _ItemDetileState extends State<ItemDetile>
           ),
           Positioned(
             left: 150,
-            top: 135,
+            top: ScreenUtil().screenHeight /ScreenUtil().pixelRatio*0.72,
+            // top: MediaQuery.of(context).size.height*0.24,//安卓 top 170 ios
             child: Image.asset(
               'images/alertIcon.png',
               width: 100,

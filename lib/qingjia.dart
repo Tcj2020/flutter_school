@@ -22,7 +22,7 @@ class _QingjiaState extends State<Qingjia> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration.zero, () {
       showDialog(
         barrierDismissible: false,
         context: context,
