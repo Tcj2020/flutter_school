@@ -1,0 +1,9 @@
+{
+  "name": "school",
+  "version": "0.0.1",
+  "author": "wyswill",
+  "scripts": {
+    "build": " flutter build apk --target-platform android-arm,android-arm64,android-x64"
+  },
+  "description": "该app复制了《今日学校》的请假界面，由flutterv1.22 build。"
+}
