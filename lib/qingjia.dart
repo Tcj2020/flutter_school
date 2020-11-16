@@ -2,14 +2,15 @@
  * @LastEditors: wyswill
  * @Description: 文件描述
  * @Date: 2020-11-04 10:59:12
- * @LastEditTime: 2020-11-13 16:44:21
+ * @LastEditTime: 2020-11-16 10:20:27
  */
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:school/Store.dart';
 import 'package:school/create.dart';
 import 'package:school/createConfig.dart';
 import 'package:school/qingjiaList.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Qingjia extends StatefulWidget {
   Qingjia({Key key}) : super(key: key);
@@ -58,7 +59,21 @@ class _QingjiaState extends State<Qingjia> {
           ],
         ),
       );
+      try {
+        _loadData();
+      } catch (e) {}
     });
+  }
+
+  _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Provider.of<Store>(context, listen: false).person =
+        prefs.getString('person');
+    Provider.of<Store>(context, listen: false).phone = prefs.getString('phone');
+    Provider.of<Store>(context, listen: false).counselor =
+        prefs.getString('counselor');
+    Provider.of<Store>(context, listen: false).positon =
+        prefs.getString('positon');
   }
 
   @override
@@ -87,10 +102,7 @@ class _QingjiaState extends State<Qingjia> {
             color: Colors.blue,
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Create(),
-                  ));
+                  context, MaterialPageRoute(builder: (context) => Createmy()));
             },
             child: Text('创建新假条', style: TextStyle(color: Colors.white)),
           ),

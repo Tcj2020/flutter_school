@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:school/Store.dart';
 import 'historyItem.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 // ignore: must_be_immutable
 class ItemDetile extends StatefulWidget {
   ItemDetile({Key key, this.item}) : super(key: key);
@@ -15,7 +18,6 @@ class _ItemDetileState extends State<ItemDetile>
     with SingleTickerProviderStateMixin {
   String currentTime = '';
   Timer t;
-  TextStyle style = TextStyle(fontWeight: FontWeight.bold, fontSize: 17);
   AnimationController controller;
   Animation<double> animation;
   @override
@@ -55,7 +57,8 @@ class _ItemDetileState extends State<ItemDetile>
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(750, 1334), allowFontScaling: false);
+    ScreenUtil.init(context,
+        designSize: Size(750, 1334), allowFontScaling: false);
     return Scaffold(
       backgroundColor: Color.fromRGBO(245, 246, 248, 1),
       appBar: AppBar(
@@ -269,7 +272,7 @@ class _ItemDetileState extends State<ItemDetile>
       Widget expand}) {
     return Container(
       margin: margin,
-      child: Row(
+      child: Wrap(
         children: [
           Container(
             width: 97,
@@ -278,7 +281,9 @@ class _ItemDetileState extends State<ItemDetile>
           ),
           Text(
             value,
-            style: TextStyle(color: color),
+            style: TextStyle(
+              color: color,
+            ),
           ),
           expand ?? Container()
         ],
@@ -295,7 +300,9 @@ class _ItemDetileState extends State<ItemDetile>
         children: [
           Text(
             '我的请假申请',
-            style: style,
+            style: TextStyle(
+                fontWeight: FontWeight.w200,
+                fontSize: Provider.of<Store>(context).titleSize ?? 14),
           ),
           option('开始时间', widget.item.timeFormat(widget.item.startTime)),
           option('结束时间', widget.item.timeFormat(widget.item.endTime)),
@@ -323,7 +330,9 @@ class _ItemDetileState extends State<ItemDetile>
         children: [
           Text(
             '审批状态',
-            style: style,
+            style: TextStyle(
+                fontWeight: FontWeight.w200,
+                fontSize: Provider.of<Store>(context).titleSize ?? 14),
           ),
           timeLine(),
           widget.item.isFinish
@@ -361,99 +370,117 @@ class _ItemDetileState extends State<ItemDetile>
 
   Widget timeLine() {
     double h = 20;
-    TextStyle style = TextStyle(color: Colors.grey, fontFamily: "firacode");
+    TextStyle style = TextStyle(
+      color: Colors.grey,
+      fontFamily: "firacode",
+      fontSize: Provider.of<Store>(context).contentSize ?? 14,
+    );
     return Container(
-        child: Column(
-      children: [
-        Row(
-          children: [
-            Container(
-              width: h,
-              height: h,
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.blue),
-                borderRadius: BorderRadius.all(Radius.circular(h)),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      decoration: BoxDecoration(),
+      child: Column(
+        children: [
+          timelineitem(
+            h: h,
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.blue),
+              borderRadius: BorderRadius.all(Radius.circular(h)),
+            ),
+            style: style,
+            children: [
+              Text(
+                '${widget.item.persopn} —— 发起申请',
+                style: style,
               ),
+              Expanded(child: Container()),
+              Text('${widget.item.timeFormat(widget.item.startTime)}',
+                  style: style),
+            ],
+          ),
+          timelineitem(
+            h: h,
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.green),
+              borderRadius: BorderRadius.all(Radius.circular(h)),
             ),
-            Text(
-              '${widget.item.persopn} —— 发起申请',
-              style: style,
-            ),
-            Expanded(child: Container()),
-            Text('${widget.item.timeFormat(widget.item.startTime)}',
-                style: style),
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-              width: h,
-              height: h,
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.green),
-                borderRadius: BorderRadius.all(Radius.circular(h)),
+            style: style,
+            children: [
+              Text(
+                '一级:[辅导员]${widget.item.counselor} —— 审批',
+                style: style,
               ),
-            ),
-            Text(
-              '一级:[辅导员]${widget.item.counselor} —— 审批',
-              style: style,
-            ),
-            Text('通过',
+              Text(
+                '通过',
                 style: TextStyle(
-                    color: Color.fromRGBO(46, 187, 132, 1),
-                    fontWeight: FontWeight.bold)),
-            Expanded(child: Container()),
-            Text(
-                '${widget.item.timeFormat(widget.item.startTime.add(Duration(hours: 3)))}',
-                style: style),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width - 130,
-              padding: EdgeInsets.only(top: 8, left: 10),
-              margin: EdgeInsets.only(top: 10),
-              height: 40,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(246, 247, 249, 1),
-                border: Border.all(
-                    width: 1, color: Color.fromRGBO(218, 221, 224, 1)),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color.fromRGBO(46, 187, 132, 1),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: Text('审批意见:${widget.item.issue}'),
-            )
-          ],
-        ),
-        widget.item.isFinish
-            ? Row(
-                children: [
-                  Container(
-                    width: h,
-                    height: h,
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(h)),
-                    ),
-                  ),
-                  Text(
-                    '${widget.item.persopn} —— 销假成功',
-                    style: style,
-                  ),
-                  Expanded(child: Container()),
-                  Text('${widget.item.timeFormat(widget.item.endTime)}',
-                      style: style),
-                ],
+              Expanded(child: Container()),
+              Text(
+                  '${widget.item.timeFormat(widget.item.startTime.add(Duration(hours: 3)))}',
+                  style: style),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width - 130,
+                padding: EdgeInsets.only(top: 8, left: 10),
+                margin: EdgeInsets.only(top: 10),
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(246, 247, 249, 1),
+                  border: Border.all(
+                      width: 1, color: Color.fromRGBO(218, 221, 224, 1)),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Text('审批意见:${widget.item.issue}'),
               )
-            : Container(),
-      ],
-    ));
+            ],
+          ),
+          widget.item.isFinish
+              ? timelineitem(
+                  h: h,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(h)),
+                  ),
+                  children: [
+                    Container(),
+                    Text(
+                      '${widget.item.persopn} —— 销假成功',
+                      style: style,
+                    ),
+                    Expanded(child: Container()),
+                    Text('${widget.item.timeFormat(widget.item.endTime)}',
+                        style: style),
+                  ],
+                )
+              : Container(),
+        ],
+      ),
+    );
   }
 
+  Widget timelineitem(
+          {double h,
+          Decoration decoration,
+          TextStyle style,
+          List<Widget> children}) =>
+      Row(
+        children: [
+          Container(
+              width: h,
+              height: h,
+              margin: EdgeInsets.only(right: 7),
+              decoration: decoration),
+          Expanded(
+            child: Row(children: children),
+          ),
+        ],
+      );
   Widget alert(double left) {
     return Positioned(
       bottom: -18,
@@ -511,7 +538,7 @@ class _ItemDetileState extends State<ItemDetile>
           ),
           Positioned(
             left: 150,
-            top: ScreenUtil().screenHeight /ScreenUtil().pixelRatio*0.72,
+            top: ScreenUtil().screenHeight / ScreenUtil().pixelRatio * 0.72,
             // top: MediaQuery.of(context).size.height*0.24,//安卓 top 170 ios
             child: Image.asset(
               'images/alertIcon.png',

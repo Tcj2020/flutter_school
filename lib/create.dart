@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:school/Store.dart';
 import 'package:school/historyItem.dart';
 
-class Create extends StatefulWidget {
-  Create({Key key}) : super(key: key);
+class Createmy extends StatefulWidget {
+  Createmy({Key key}) : super(key: key);
 
   @override
-  _CreateState createState() => _CreateState();
+  _CreatemyState createState() => _CreatemyState();
 }
 
-class _CreateState extends State<Create> {
+class _CreatemyState extends State<Createmy> {
   GlobalKey _formKey = new GlobalKey<FormState>();
   String startTime = '0:0:0',
       endTime = '0:0:0',
